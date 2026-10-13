@@ -81,7 +81,7 @@ Q50/Q80/Q90 quantities add the corresponding empirical signed calibration-residu
 
 ## Procurement and paper trade management
 
-Each policy has its own book. Orders are capped at **4 MWh per zone-hour** and **120 MWh across both zones per UTC delivery day**. Within an issue batch, orders consume capacity by delivery hour, with DK1 first for ties. Quantities are clipped rather than jointly optimized across hours. The system also provides a kill switch, duplicate protection, input validation and chronological event checks.
+Each policy has its own book. Orders are capped at **4 MWh per zone-hour** and **120 MWh across both zones per UTC delivery day**. Within an issue batch, all DK1 delivery hours consume capacity before DK2, with hours ordered within each zone. This area-first allocation prioritizes DK1 when the shared daily limit binds. Quantities are clipped rather than jointly optimized across hours. The system also provides a kill switch, duplicate protection, input validation and chronological event checks.
 
 An accepted nomination moves through `PROPOSED → APPROVED → OPEN → SETTLED`. A rejected nomination moves through `REJECTED → REJECTED_RECONCILED`; its uncovered actual demand still creates a cost. The paper desk assumes accepted quantities can be nominated; it does not simulate order matching, liquidity, partial exchange fills or fees. Reconciliation occurs at delivery-hour end plus 12 days. The report's planning snapshot hides future actuals and shows OPEN/REJECTED states; the later snapshot shows the corresponding reconciled states.
 
@@ -103,7 +103,7 @@ The saved SQLite database and order CSVs use the default EUR 200/50 charges. Alt
 
 **31 local tests passed.** Tests cover missing and duplicate observations, negative price aggregation, cache fingerprints, delay boundaries, future-data invariance, training-only scaling, interval calibration, phase gaps, accounting, shared caps, rejection costs, duplicate and premature settlement guards, persistence, event chronology and report escaping. Browser checks confirmed all report selectors, rejected orders, later reconciliation and an empty warning/error log.
 
-GitHub Actions is configured for Python 3.11, 3.12 and 3.13. A configured workflow is not evidence that hosted tests have run; inspect the Actions tab for the latest execution status.
+GitHub Actions passed on Python 3.11, 3.12 and 3.13 for the initial project upload. Inspect the Actions tab for the latest execution status.
 
 ```text
 demanddesk/data.py      Official downloads, cache integrity and hourly alignment
