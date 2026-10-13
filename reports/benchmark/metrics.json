@@ -1,0 +1,2708 @@
+{
+  "title": "Danish Demand & Procurement Desk",
+  "source": {
+    "demand": {
+      "url": "https://api.energidataservice.dk/dataset/GenerationProdTypeExchange?start=2025-10-01&end=2026-10-01&filter=%7B%22PriceArea%22%3A+%5B%22DK1%22%2C+%22DK2%22%5D%7D&columns=TimeUTC%2CPriceArea%2CVersion%2CGrossCon&sort=TimeUTC%2CPriceArea&limit=0",
+      "retrieved_utc": "2026-10-13T08:27:28.790265+00:00",
+      "sha256": "a9b632a27620e7251b13e9f28824ee604d5325e293d5f4c21b9f544b4489db6d",
+      "records": 17520,
+      "metadata": {
+        "datasetId": 149,
+        "datasetName": "GenerationProdTypeExchange",
+        "title": "Generation per Production Type and Exchange",
+        "description": "Production per fuel, exchange and total consumption per bidding zone.\n\nThe dataset combines fast updated data with more correct settlement data. Only the best data is shown per time period. No filters are needed.\n\n",
+        "organizationName": "tso-electricity",
+        "updateFrequency": "PT1H",
+        "comment": "Versions:\n* Initial: Based on online power signal to Energinet's SCADA system. Published shortly after end of period. Errors will occur, and will generally not be corrected.\n* Preliminary: Based on settlement data, however divided on fuels based on last year data per power plant. 8-10 days delay.\n* Final: Based on settlement data, division on fuels based on data per power plant in the relevant year. Published June 1 the following year.\n\n---\n**API Request Frequency**\u202f\\\nTo get the most up-to-date data, calling the API with a dynamic timestamp such as [start=now-P1D](https://api.energidataservice.dk/dataset/GenerationProdTypeExchange?start=now-P1D) is a good approach. Making a few requests hourly is sufficient to ensure getting the latest data.",
+        "caution": "The dataset will change as part of the [transition to DataHub 3.0](https://www.energidataservice.dk/news#154).\\\nThe URL/endpoint will remain unchanged. However, the values will be calculated using a different method. \nWe are aware that the values do not exactly match those reported under Article 16.1b&c on the Transparency Platform, and we are currently investigating a solution.\n\n**Expected implementation date: October / November.**\n\n",
+        "filterColumn": "TimeUTC",
+        "author": "Energinet",
+        "resolution": "1 hour (PT1H)",
+        "columns": [
+          {
+            "dbColumn": "TimeUTC",
+            "dataType": "datetime",
+            "sortOrder": 2,
+            "primaryKeyIndex": 1,
+            "displayName": "Time UTC",
+            "unit": "",
+            "description": "A date and time shown in _UTC time zone_. It is the \"from\" timestamp for the period in which the values are valid. The dataset resolution sets the length of the interval.",
+            "comment": "Please note that the _format_ shown in the example applies to data downloaded as JSON or fetched through the API.\nThe format is slightly different when it is shown on screen or downloaded manually as CSV or XLSX. This is mainly due to readability and consideration for Excel users.\n\n**In preview (in the GUI)** all timestamps are shown as (display convention)\nYYYY-MM-DD hh:mmZ\ne.g. 2017-07-14 08:00Z. \nThat is without the seconds. The Z will remind viewers that this is UTC.\n\nIn **download (CSV and XLSX)** the date time are exported as\nYYYY-MM-DD hh:mm\ne.g. 2017-07-14 08:00.\nThat is without the \u201cT\u201d and the \u201cZ\u201d and the seconds. Excel will recognize it as date-time. The user must remember the convention about time zones.\n\nIn **download (JSON and API)** the datetime is exported as\nYYYY-MM-DDThh:mm:ss\ne.g. 2017-07-14T08:00:00.\nThat is without the \"Z\".",
+            "example": "2017-07-14T08:00",
+            "columnSize": 17.0
+          },
+          {
+            "dbColumn": "TimeDK",
+            "dataType": "datetime",
+            "sortOrder": 4,
+            "displayName": "Time DK",
+            "unit": "",
+            "description": "A date and time shown in _DK time zone_. It is the \"from\" timestamp for the period in which the values are valid. The dataset resolution sets the length of the interval.",
+            "comment": "Please note that the _format_ shown in the example applies to data downloaded as JSON or fetched through the API.\nThe format is slightly different when it is shown on screen or downloaded manually as CSV or XLSX. This is mainly due to readability and consideration for Excel users.\n\n**In preview (in the GUI)** all timestamps are shown as (display convention)\nYYYY-MM-DD hh:mmZ\ne.g. 2017-07-14 08:00Z. \nPlease note that there is no time zone indicator, showing that this is local (Danish) time.\n\nIn **download (CSV and XLSX)** the date time are exported as\nYYYY-MM-DD hh:mm\ne.g. 2017-07-14 08:00.\nThat is without the \u201cT\u201d and the seconds. Excel will recognize it as date-time. The user must remember that this is local (Danish) time..\n\nIn **download (JSON and API)** the datetime is exported as\nYYYY-MM-DDThh:mm:ss\ne.g. 2017-07-14T08:00:00.\n",
+            "example": "2017-07-14T08:00",
+            "columnSize": 16.0
+          },
+          {
+            "dbColumn": "PriceArea",
+            "dataType": "string",
+            "sortOrder": 24,
+            "primaryKeyIndex": 2,
+            "displayName": "Price Area",
+            "unit": "",
+            "description": "Same as bidding zone. Denmark is divided in two price areas (bidding zones) divided by the Great Belt. DK1 is west of the Great Belt and DK2 is east of the Great Belt.",
+            "comment": "Some datasets contain a limited number of price areas.",
+            "example": "DK1",
+            "columnSize": 3.0,
+            "validationRules": "DK1, DK2, DE, NO2, SE3, SE4"
+          },
+          {
+            "dbColumn": "Version",
+            "dataType": "string",
+            "sortOrder": 25,
+            "displayName": "Version",
+            "unit": "text",
+            "description": "The version of the declaration.",
+            "comment": "\"Initial\" is based on live production measurement on larger production facilities, and upscaled. Power plant data is based on the latest fuel count. The fuel count may be up to 1,5 years old, but normally relatively stable per power plant per kWh.\n\n\"Preliminary\" is based on settlement production data (at least 8 days delay), but still with Power plant data the latest fuel count from previous years (up to -2 years).\n\n\"Final\" is based on settlement production data, and with Power plant data from the fuel count same year. The final version is published June 1 at the latest for the previous year.",
+            "example": "Final",
+            "columnSize": 20.0
+          },
+          {
+            "dbColumn": "GrossCon",
+            "dataType": "number",
+            "sortOrder": 26,
+            "displayName": "Gross Consumption",
+            "unit": "MWh",
+            "description": "Sum of the consumption incl. transmission loss.",
+            "comment": "",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "OffshoreWindPower",
+            "dataType": "number",
+            "sortOrder": 27,
+            "displayName": "Offshore Wind Power",
+            "unit": "MWh",
+            "description": "Electricity production from offshore wind power.",
+            "comment": "Includes both large offshore parks like Horns reef, and local wind turbines located offshore.",
+            "example": "184,3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "OnshoreWindPower",
+            "dataType": "number",
+            "sortOrder": 28,
+            "displayName": "Onshore Wind Power",
+            "unit": "MWh",
+            "description": "Average power production from onshore wind power.",
+            "comment": "All wind generators that are not specifically registered as offshore wind generators.",
+            "example": "184,3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "HydroPower",
+            "dataType": "number",
+            "sortOrder": 29,
+            "displayName": "Hydro Power",
+            "unit": "MWh",
+            "description": "Average power production from hydro power plants.\n",
+            "comment": "Only few hydro power plants send online data.\n\n",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "SolarPower",
+            "dataType": "number",
+            "sortOrder": 31,
+            "displayName": "Solar Power",
+            "unit": "MWh",
+            "description": "Electricity production from solar power.",
+            "comment": "",
+            "example": "184,3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "SolarPowerSelfCon",
+            "dataType": "number",
+            "sortOrder": 32,
+            "displayName": "Solar Power Self Consumption",
+            "unit": "MWh",
+            "description": "The estimated production from solar panels, which is not  delivered to the grid. The value is the difference between the modelled (expected) production and the actual delivered production from solar panels. When the modelled value is smaller than the actual value, the local power self-consumption is set to zero.",
+            "comment": "",
+            "example": "45,3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "Biomass",
+            "dataType": "number",
+            "sortOrder": 33,
+            "displayName": "Biomass",
+            "unit": "MWh",
+            "description": "Average power production from power plants with biomass as main fuel.",
+            "comment": "Note that the statistics are based on the main fuel in master data. The power plants can supplement with other fuels and therefore the data will not be completely compliant with the final fuel count.",
+            "example": "184,3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "Biogas",
+            "dataType": "number",
+            "sortOrder": 34,
+            "displayName": "Biogas",
+            "unit": "MWh",
+            "description": "Production from biogas. ",
+            "comment": "Included in biomass at Entso-E.",
+            "example": "15",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "Waste",
+            "dataType": "number",
+            "sortOrder": 35,
+            "displayName": "Waste",
+            "unit": "MWh",
+            "description": "Average power production from power plant with waste as main fuel.",
+            "comment": "Note that the statistics are based on the main fuel in master data. The power plants can supplement with other fuels and therefore the data will not be completely compliant with the final fuel count.",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "FossilGas",
+            "dataType": "number",
+            "sortOrder": 36,
+            "displayName": "Fossil Gas",
+            "unit": "MWh",
+            "description": "Average power production from power plants with fossil gas as main fuel.\n",
+            "comment": "Note that the statistics are based on the main fuel in master data. The power plants can supplement with other fuels and therefore the data will not be completely compliant with the final fuel count.",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "FossilOil",
+            "dataType": "number",
+            "sortOrder": 37,
+            "displayName": "Fossil Oil",
+            "unit": "MWh",
+            "description": "Average power production from power plants with fossil oil as main fuel.",
+            "comment": "Note that the statistics are based on the main fuel in master data. The power plants can supplement with other fuels and therefore the data will not be completely compliant with the final fuel count.",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "FossilHardCoal",
+            "dataType": "number",
+            "sortOrder": 40,
+            "displayName": "Fossil Hard Coal",
+            "unit": "MWh",
+            "description": "Average power production from power plants with Fossil Hard Coal as main fuel.",
+            "comment": "Note that the statistics are based on the main fuel in master data. The power plants can supplement with other fuels and therefore the data will not be completely compliant with the final fuel count.",
+            "example": "184.3",
+            "columnSize": 9.1,
+            "validationRules": ">=0"
+          },
+          {
+            "dbColumn": "ExchangeGreatBelt",
+            "dataType": "number",
+            "sortOrder": 41,
+            "displayName": "Exchange Great Belt",
+            "unit": "MWh",
+            "description": "Exchange of electricity over the Great Belt connection between the price areas DK1 and DK2.",
+            "comment": "A positive exchange indicates a flow from DK2 to DK1, while a negative exchange indicates flow from DK1 to DK2.",
+            "example": "15.1",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "ExchangeGermany",
+            "dataType": "number",
+            "sortOrder": 42,
+            "displayName": "Exchange Germany",
+            "unit": "MWh",
+            "description": "Exchange of electricity between Denmark and Germany.",
+            "comment": "A positive exchange indicates import of electricity to Denmark, while a negative exchange indicates export of electricity from Denmark.",
+            "example": "100.0",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "ExchangeSweden",
+            "dataType": "number",
+            "sortOrder": 43,
+            "displayName": "Exchange Sweden",
+            "unit": "MWh",
+            "description": "Exchange of electricity between Denmark and Sweden.",
+            "comment": "A positive exchange indicates import of electricity to Denmark, while a negative exchange indicates export of electricity from Denmark.",
+            "example": "100.0",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "ExchangeNorway",
+            "dataType": "number",
+            "sortOrder": 44,
+            "displayName": "Exchange Norway",
+            "unit": "MWh",
+            "description": "Exchange of electricity between Denmark and Norway.",
+            "comment": "A positive exchange indicates import of electricity to Denmark, while a negative exchange indicates export of electricity from Denmark.",
+            "example": "100.0",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "ExchangeNetherlands",
+            "dataType": "number",
+            "sortOrder": 45,
+            "displayName": "Exchange Netherlands",
+            "unit": "MWh",
+            "description": "Exchange of electricity between Denmark and the Netherlands.",
+            "comment": "A positive exchange indicates import of electricity to Denmark, while a negative exchange indicates export of electricity from Denmark.",
+            "example": "234.1",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "ExchangeGreatBritain",
+            "dataType": "number",
+            "sortOrder": 46,
+            "displayName": "Exchange Great Britain",
+            "unit": "MWh",
+            "description": "Exchange of electricity between Denmark and Great Britain.",
+            "comment": "A positive exchange indicates import of electricity to Denmark, while a negative exchange indicates export of electricity from Denmark.",
+            "example": "100.0",
+            "columnSize": 9.1
+          },
+          {
+            "dbColumn": "CO2PerkWh",
+            "dataType": "number",
+            "sortOrder": 47,
+            "displayName": "Co2 per kWh",
+            "unit": "g/kWh",
+            "description": "CO2 emissions per consumed kWh.",
+            "comment": "Import is included in emissions. For further information please see [CSR og Deklarationer](https://energinet.dk/data-om-energi/deklarationer-og-csr/) (Danish).",
+            "example": "434.1",
+            "columnSize": 6.2,
+            "validationRules": ">0"
+          }
+        ],
+        "tags": [
+          "Active",
+          "Hour",
+          "Hourly (PT1H)",
+          "Price Area"
+        ],
+        "dataFrom": "2015-01-01T00:00:00",
+        "dataTo": "2026-10-13T09:00:00",
+        "lastDataUpdate": "2026-10-13T10:20:40",
+        "lastMetadataUpdate": "2026-10-08T10:35:49",
+        "published": "2025-11-17T00:00:00",
+        "active": true,
+        "buildReport": false
+      }
+    },
+    "prices": {
+      "url": "https://api.energidataservice.dk/dataset/DayAheadPrices?start=2025-10-01&end=2026-10-01&filter=%7B%22PriceArea%22%3A+%5B%22DK1%22%2C+%22DK2%22%5D%7D&columns=TimeUTC%2CPriceArea%2CDayAheadPriceEUR&sort=TimeUTC%2CPriceArea&limit=0",
+      "retrieved_utc": "2026-10-13T08:27:29.684012+00:00",
+      "sha256": "93ccd57867b2eae79705659e84a4aa8f1913b3a714204ccb859316a964ef7da2",
+      "records": 70080,
+      "metadata": {
+        "datasetId": 129,
+        "datasetName": "DayAheadPrices",
+        "title": "Day-Ahead Prices",
+        "description": "Day-Ahead Prices for Denmark and Neighboring Countries.\n\nThis dataset provides day-ahead electricity prices for Denmark (DK1 and DK2) and neighboring countries in the Nord Pool market, including Norway, Sweden, Finland, and Germany. In the day-ahead market, participants buy and sell electricity for delivery the following day within their respective bidding zones.",
+        "organizationName": "tso-electricity",
+        "updateFrequency": "P1D",
+        "comment": "The day-ahead prices reflect the balance between supply and demand and serve as a key indicator of market dynamics across the Nordic and European power systems.\n\nThe Day-Ahead Price (DKK) is calculated based on the Day-Ahead Price (EUR) and the Euro exchange rate from Danmarks Nationalbank. It may therefore deviate from Danish Day-Ahead prices seen elsewhere.\n\nFor data before 2025-10-01 see [Elspot Prices](https://www.energidataservice.dk/tso-electricity/Elspotprices) (hourly resolution).\n\n---\n**API Request Frequency**\u202f\\\nTo get the Day-Ahead Prices for tomorrow, calling the API with a dynamic timestamp such as [start=StartOfDay%2BP1D](https://api.energidataservice.dk/dataset/DayAheadPrices?start=StartOfDay%2BP1D) is a good approach. Making a request every five minutes or so between 13:00 and 14:00 CET is sufficient to ensure getting the latest data.",
+        "caution": "",
+        "filterColumn": "TimeUTC",
+        "author": "Energinet",
+        "resolution": "15 minutes (PT15M)",
+        "columns": [
+          {
+            "dbColumn": "TimeUTC",
+            "dataType": "datetime",
+            "sortOrder": 1,
+            "primaryKeyIndex": 1,
+            "displayName": "Time UTC",
+            "unit": "",
+            "description": "A date and time shown in _UTC time zone_. It is the \"from\" timestamp for the period in which the values are valid. The dataset resolution sets the length of the interval.",
+            "comment": "Please note that the _format_ shown in the example applies to data downloaded as JSON or fetched through the API.\nThe format is slightly different when it is shown on screen or downloaded manually as CSV or XLSX. This is mainly due to readability and consideration for Excel users.\n\n**In preview (in the GUI)** all timestamps are shown as (display convention)\nYYYY-MM-DD hh:mmZ\ne.g. 2017-07-14 08:00Z. \nThat is without the seconds. The Z will remind viewers that this is UTC.\n\nIn **download (CSV and XLSX)** the date time are exported as\nYYYY-MM-DD hh:mm\ne.g. 2017-07-14 08:00.\nThat is without the \u201cT\u201d and the \u201cZ\u201d and the seconds. Excel will recognize it as date-time. The user must remember the convention about time zones.\n\nIn **download (JSON and API)** the datetime is exported as\nYYYY-MM-DDThh:mm:ss\ne.g. 2017-07-14T08:00:00.\nThat is without the \"Z\".",
+            "example": "2017-07-14T08:00",
+            "columnSize": 17.0
+          },
+          {
+            "dbColumn": "TimeDK",
+            "dataType": "datetime",
+            "sortOrder": 2,
+            "primaryKeyIndex": 2,
+            "displayName": "Time DK",
+            "unit": "",
+            "description": "A date and time shown in _DK time zone_. It is the \"from\" timestamp for the period in which the values are valid. The dataset resolution sets the length of the interval.",
+            "comment": "Please note that the _format_ shown in the example applies to data downloaded as JSON or fetched through the API.\nThe format is slightly different when it is shown on screen or downloaded manually as CSV or XLSX. This is mainly due to readability and consideration for Excel users.\n\n**In preview (in the GUI)** all timestamps are shown as (display convention)\nYYYY-MM-DD hh:mmZ\ne.g. 2017-07-14 08:00Z. \nPlease note that there is no time zone indicator, showing that this is local (Danish) time.\n\nIn **download (CSV and XLSX)** the date time are exported as\nYYYY-MM-DD hh:mm\ne.g. 2017-07-14 08:00.\nThat is without the \u201cT\u201d and the seconds. Excel will recognize it as date-time. The user must remember that this is local (Danish) time..\n\nIn **download (JSON and API)** the datetime is exported as\nYYYY-MM-DDThh:mm:ss\ne.g. 2017-07-14T08:00:00.\n",
+            "example": "2017-07-14T08:00",
+            "columnSize": 16.0
+          },
+          {
+            "dbColumn": "PriceArea",
+            "dataType": "string",
+            "sortOrder": 3,
+            "primaryKeyIndex": 3,
+            "displayName": "Price Area",
+            "unit": "",
+            "description": "Same as bidding zone. Denmark is divided in two price areas (bidding zones) divided by the Great Belt. DK1 is west of the Great Belt and DK2 is east of the Great Belt.",
+            "comment": "Some datasets contain a limited number of price areas.",
+            "example": "DK1",
+            "columnSize": 3.0,
+            "validationRules": "DK1, DK2, DE, NO2, SE3, SE4"
+          },
+          {
+            "dbColumn": "DayAheadPriceEUR",
+            "dataType": "number",
+            "sortOrder": 4,
+            "displayName": "Day-Ahead Price (EUR)",
+            "unit": "EUR per MWh",
+            "description": "Day-Ahead price for the price area in EUR.",
+            "comment": "The Day-Ahead prices indicate the balance between supply and demand.",
+            "example": "50,10",
+            "columnSize": 9.2
+          },
+          {
+            "dbColumn": "DayAheadPriceDKK",
+            "dataType": "number",
+            "sortOrder": 5,
+            "displayName": "Day-Ahead Price (DKK)",
+            "unit": "DKK per MWh",
+            "description": "Day-Ahead price for the price area in DKK.\n\nThe Day-Ahead Price (DKK) is calculated based on the Day-Ahead Price (EUR) and the Euro exchange rate from Danmarks Nationalbank. It may therefore deviate from Danish Day-Ahead prices seen elsewhere.",
+            "comment": "The Day-Ahead prices indicate the balance between supply and demand.",
+            "example": "50,10",
+            "columnSize": 9.2
+          }
+        ],
+        "tags": [
+          "15 Minute",
+          "Active",
+          "Daily (P1D)",
+          "Price Area"
+        ],
+        "dataFrom": "2025-10-01T00:00:00",
+        "dataTo": "2026-10-13T23:45:00",
+        "lastDataUpdate": "2026-10-12T13:07:17",
+        "lastMetadataUpdate": "2026-05-07T14:24:08",
+        "published": "2025-06-11T00:00:00",
+        "active": true,
+        "buildReport": false
+      }
+    }
+  },
+  "quality": {
+    "counts": {
+      "DK1_demand_hours": 8760,
+      "DK1_missing_demand_hours": 0,
+      "DK2_demand_hours": 8760,
+      "DK2_missing_demand_hours": 0
+    },
+    "versions": {
+      "Final": 4418,
+      "Preliminary": 12046,
+      "Initial": 1056
+    }
+  },
+  "areas": {
+    "DK1": {
+      "selected": "three_week_mean",
+      "training_n": 5162,
+      "validation": {
+        "two_week": {
+          "n": 720,
+          "mae_mwh": 193.4876989402778,
+          "rmse_mwh": 249.88924972872732,
+          "bias_mwh": 20.500918409722235,
+          "wape": 0.07238917658832572
+        },
+        "three_week_mean": {
+          "n": 720,
+          "mae_mwh": 158.15860804629628,
+          "rmse_mwh": 203.41869643424803,
+          "bias_mwh": 13.959648075925932,
+          "wape": 0.059171572505810774
+        },
+        "ridge_1": {
+          "n": 720,
+          "mae_mwh": 276.69162695284604,
+          "rmse_mwh": 335.00584195617444,
+          "bias_mwh": -273.3010201169584,
+          "wape": 0.10351810039450128
+        },
+        "ridge_10": {
+          "n": 720,
+          "mae_mwh": 273.19804754087335,
+          "rmse_mwh": 331.88451347415753,
+          "bias_mwh": -269.3980327608426,
+          "wape": 0.10221105432199261
+        },
+        "ridge_100": {
+          "n": 720,
+          "mae_mwh": 245.67219079887073,
+          "rmse_mwh": 306.8311259653698,
+          "bias_mwh": -236.99024337031338,
+          "wape": 0.09191285906020072
+        }
+      },
+      "calibration_n": 504,
+      "test": {
+        "two_week": {
+          "n": 696,
+          "mae_mwh": 227.37733566666662,
+          "rmse_mwh": 338.8536358358254,
+          "bias_mwh": -137.5054255143678,
+          "wape": 0.07797931634133172
+        },
+        "three_week_mean": {
+          "n": 696,
+          "mae_mwh": 234.7110026135058,
+          "rmse_mwh": 350.3233956022674,
+          "bias_mwh": -166.8463504822797,
+          "wape": 0.08049440577675329
+        },
+        "ridge_1": {
+          "n": 696,
+          "mae_mwh": 361.32787265873856,
+          "rmse_mwh": 493.16617608269837,
+          "bias_mwh": -352.14283945558486,
+          "wape": 0.12391780562642417
+        },
+        "ridge_10": {
+          "n": 696,
+          "mae_mwh": 357.65845482547473,
+          "rmse_mwh": 490.23615255244823,
+          "bias_mwh": -347.9585547536881,
+          "wape": 0.12265937459956018
+        },
+        "ridge_100": {
+          "n": 696,
+          "mae_mwh": 329.45390569408875,
+          "rmse_mwh": 466.96333232931437,
+          "bias_mwh": -313.8107838268933,
+          "wape": 0.11298659233859973
+        }
+      },
+      "offsets_mwh": {
+        "0.5": 135.9321090000003,
+        "0.8": 293.8933390000002,
+        "0.9": 400.1710926666674
+      },
+      "interval90_radius_mwh": 410.16622333333316,
+      "interval90_coverage": 0.8017241379310345,
+      "models": {
+        "ridge_1": {
+          "mean": [
+            3186.123804796782,
+            3183.2817223149905,
+            3190.7084033589645,
+            3186.025641479562,
+            328.10408396615924,
+            3555.8469292053483,
+            3439.312832799334,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            512.3442536230793,
+            509.64094954595754,
+            502.2924228412972,
+            369.4672922880452,
+            136.2254793723834,
+            397.96003132856214,
+            385.7678224094707,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            3166.4117661838386,
+            156.1858345441676,
+            89.17434147163291,
+            19.960374539989065,
+            -70.72118908789996,
+            1.9174317490911343,
+            -16.152993281936478,
+            14.971472604574677,
+            15.084522204323934,
+            -139.48158877164326,
+            -25.879934000590858,
+            22.088631005126167,
+            54.296540951885746,
+            56.852135588714,
+            68.21700406717665,
+            78.76376088594253,
+            46.06084368512529,
+            -9.856537754118136,
+            94.27689406324808,
+            243.27903980677752
+          ]
+        },
+        "ridge_10": {
+          "mean": [
+            3186.123804796782,
+            3183.2817223149905,
+            3190.7084033589645,
+            3186.025641479562,
+            328.10408396615924,
+            3555.8469292053483,
+            3439.312832799334,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            512.3442536230793,
+            509.64094954595754,
+            502.2924228412972,
+            369.4672922880452,
+            136.2254793723834,
+            397.96003132856214,
+            385.7678224094707,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            3166.4117661838386,
+            154.8679308182965,
+            89.98129167407899,
+            20.943153673590285,
+            -67.39813039105773,
+            1.6141274065386717,
+            -16.19833097630534,
+            13.592096085345615,
+            15.039583442193896,
+            -139.02544064967856,
+            -25.808808866270752,
+            22.03061079711189,
+            53.32419154573002,
+            55.92066206112939,
+            67.21521458196119,
+            77.5611131827445,
+            45.182825887968576,
+            -10.093431963310369,
+            92.04623466170695,
+            240.28228320347296
+          ]
+        },
+        "ridge_100": {
+          "mean": [
+            3186.123804796782,
+            3183.2817223149905,
+            3190.7084033589645,
+            3186.025641479562,
+            328.10408396615924,
+            3555.8469292053483,
+            3439.312832799334,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            512.3442536230793,
+            509.64094954595754,
+            502.2924228412972,
+            369.4672922880452,
+            136.2254793723834,
+            397.96003132856214,
+            385.7678224094707,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            3166.4117661838386,
+            144.46455129252573,
+            96.06742450221097,
+            29.22604167411398,
+            -43.70299198833104,
+            -2.3104619054779105,
+            -14.380805755296787,
+            3.866379186105625,
+            14.625578997345892,
+            -134.8772228799577,
+            -25.148298723860883,
+            21.48672323795664,
+            45.04974195226301,
+            47.94577124021298,
+            58.63355469206798,
+            67.4710411870702,
+            37.80476851262252,
+            -12.160597001523671,
+            73.7246243375392,
+            215.766181805162
+          ]
+        }
+      }
+    },
+    "DK2": {
+      "selected": "three_week_mean",
+      "training_n": 5162,
+      "validation": {
+        "two_week": {
+          "n": 720,
+          "mae_mwh": 85.2515801888889,
+          "rmse_mwh": 107.204802285474,
+          "bias_mwh": 17.65994760555556,
+          "wape": 0.05403068937494731
+        },
+        "three_week_mean": {
+          "n": 720,
+          "mae_mwh": 69.7575756226852,
+          "rmse_mwh": 88.35818944373928,
+          "bias_mwh": 4.525295302314817,
+          "wape": 0.044210909541708796
+        },
+        "ridge_1": {
+          "n": 720,
+          "mae_mwh": 215.93362261090968,
+          "rmse_mwh": 233.51072913452322,
+          "bias_mwh": -215.89718751574773,
+          "wape": 0.13685426666634107
+        },
+        "ridge_10": {
+          "n": 720,
+          "mae_mwh": 211.84913655962268,
+          "rmse_mwh": 229.66990562367715,
+          "bias_mwh": -211.80627032833993,
+          "wape": 0.13426560383329533
+        },
+        "ridge_100": {
+          "n": 720,
+          "mae_mwh": 181.09761128189663,
+          "rmse_mwh": 201.52787993941863,
+          "bias_mwh": -181.01274467506644,
+          "wape": 0.11477592274579794
+        }
+      },
+      "calibration_n": 504,
+      "test": {
+        "two_week": {
+          "n": 696,
+          "mae_mwh": 89.94541645114941,
+          "rmse_mwh": 122.65834387071408,
+          "bias_mwh": -40.45847924137931,
+          "wape": 0.053819878603397354
+        },
+        "three_week_mean": {
+          "n": 696,
+          "mae_mwh": 81.72254666858238,
+          "rmse_mwh": 115.76990438070709,
+          "bias_mwh": -59.01738722318009,
+          "wape": 0.048899629513109805
+        },
+        "ridge_1": {
+          "n": 696,
+          "mae_mwh": 215.6157891818738,
+          "rmse_mwh": 247.06771497288813,
+          "bias_mwh": -215.13055454817626,
+          "wape": 0.12901619734060246
+        },
+        "ridge_10": {
+          "n": 696,
+          "mae_mwh": 210.13665290962842,
+          "rmse_mwh": 242.06083132805705,
+          "bias_mwh": -209.56051554276192,
+          "wape": 0.12573769288024594
+        },
+        "ridge_100": {
+          "n": 696,
+          "mae_mwh": 169.69719141065497,
+          "rmse_mwh": 205.63194499396982,
+          "bias_mwh": -167.3745382350813,
+          "wape": 0.10154027410634354
+        }
+      },
+      "offsets_mwh": {
+        "0.5": 45.030146666666724,
+        "0.8": 111.41215133333344,
+        "0.9": 154.64985699999988
+      },
+      "interval90_radius_mwh": 158.77848300000005,
+      "interval90_coverage": 0.8548850574712644,
+      "models": {
+        "ridge_1": {
+          "mean": [
+            1938.0911909108906,
+            1937.835428731888,
+            1939.6321549907007,
+            1938.086791584829,
+            218.86385061896266,
+            2158.3899509538824,
+            2117.882339050374,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            322.64043595473623,
+            321.6150202221657,
+            319.2813787531725,
+            234.18926465941382,
+            37.65733997977346,
+            236.4483243748505,
+            242.21124969089954,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            1925.7773664062445,
+            156.21842033917207,
+            56.4003562331084,
+            -11.001727831153772,
+            12.893438869919088,
+            9.195004105002685,
+            -73.64079985806842,
+            -28.431406399882786,
+            -12.3983470389715,
+            -73.66560024867788,
+            -13.303238126953076,
+            -4.80803137655237,
+            36.78877694389576,
+            35.96452006346465,
+            40.19589952503526,
+            41.44076271126076,
+            24.721253147534874,
+            -8.009694878135043,
+            73.90948025941968,
+            179.54014417176668
+          ]
+        },
+        "ridge_10": {
+          "mean": [
+            1938.0911909108906,
+            1937.835428731888,
+            1939.6321549907007,
+            1938.086791584829,
+            218.86385061896266,
+            2158.3899509538824,
+            2117.882339050374,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            322.64043595473623,
+            321.6150202221657,
+            319.2813787531725,
+            234.18926465941382,
+            37.65733997977346,
+            236.4483243748505,
+            242.21124969089954,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            1925.7773664062438,
+            153.0064886132463,
+            57.41254231729523,
+            -9.218873959939314,
+            13.494306351647218,
+            8.1711033818891,
+            -69.69364322496445,
+            -29.43604115674494,
+            -12.413787807450497,
+            -73.78873109344084,
+            -13.334435986355658,
+            -4.805511983029864,
+            35.49729868295932,
+            34.71906609068294,
+            38.87974773971334,
+            40.06409161575573,
+            23.336457154772347,
+            -8.619263056048418,
+            70.52323929068415,
+            176.26741306361004
+          ]
+        },
+        "ridge_100": {
+          "mean": [
+            1938.0911909108906,
+            1937.835428731888,
+            1939.6321549907007,
+            1938.086791584829,
+            218.86385061896266,
+            2158.3899509538824,
+            2117.882339050374,
+            -0.0001470009773542643,
+            0.00035489175321060145,
+            -0.0002646310352159302,
+            0.00026463103521589236,
+            0.13948082138705928,
+            0.13986826811313444,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.14413018209996126,
+            0.35550010005272425,
+            0.37737005227598547
+          ],
+          "scale": [
+            322.64043595473623,
+            321.6150202221657,
+            319.2813787531725,
+            234.18926465941382,
+            37.65733997977346,
+            236.4483243748505,
+            242.21124969089954,
+            0.7070131985140754,
+            0.7072002471503044,
+            0.7071067316681534,
+            0.7071067316681534,
+            0.3464475744643922,
+            0.34685030732028804,
+            0.3512216859873263,
+            0.35122168598732645,
+            0.3512216859873266,
+            0.3512216859873268,
+            0.6154036595628729,
+            0.5937085634419942
+          ],
+          "coefficients": [
+            1925.777366406242,
+            130.4140879699415,
+            63.91541768891246,
+            4.323881958305137,
+            16.89265847045386,
+            1.2047218112586628,
+            -43.18118384221582,
+            -33.51472324206633,
+            -12.405284167425442,
+            -74.04666674912464,
+            -13.449426098235017,
+            -4.737962808346259,
+            26.9680317443398,
+            26.433726077821802,
+            30.123581552399248,
+            30.907256888704378,
+            15.026708532405449,
+            -11.628254785898363,
+            45.74299892642422,
+            152.2580053433104
+          ]
+        }
+      }
+    }
+  },
+  "share": 0.001,
+  "hourly_limit_mwh": 4,
+  "daily_limit_mwh": 120,
+  "availability_days": 12,
+  "test_start": "2026-09-01",
+  "test_end_exclusive": "2026-09-30",
+  "note": "Revised gross consumption, synthetic customer share and assumed shortage/surplus charges",
+  "policies": [
+    {
+      "policy": "q50",
+      "scenarios": [
+        {
+          "shortage": 50,
+          "surplus": 50,
+          "critical_quantile": 0.5,
+          "penalty_eur": 10220.506786633334,
+          "uncapped_penalty_eur": 10258.218826650002,
+          "cap_penalty_change_eur": -37.71204001666774,
+          "short_mwh": 118.73769327733318,
+          "surplus_mwh": 85.67244245533347,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 287.7810543833336,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 240.73540896666702,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 277.8928271333333,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 258.7160282833332,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 594.0764235166663,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 302.2619487166666,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 288.8256833833336,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 316.7560253333335,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 207.00153181666647,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 351.3506321000004,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 184.10486661666673,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 370.8695645833335,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 312.333195466667,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 218.99504201666684,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 290.47541839999985,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 199.14948579999998,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 401.9680226833332,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 459.7743638333332,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 603.8591547999995,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 680.1056015499996,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 620.4332440999998,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 276.48603673333355,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 200.98642241666715,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 293.24062086666663,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 365.6444742000001,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 526.8636677833338,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 473.6501517999998,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 331.9750914500005,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 284.19479790000014,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 200,
+          "surplus": 50,
+          "critical_quantile": 0.8,
+          "penalty_eur": 28031.160778233305,
+          "uncapped_penalty_eur": 27989.40442904998,
+          "cap_penalty_change_eur": 41.756349183324346,
+          "short_mwh": 118.73769327733318,
+          "surplus_mwh": 85.67244245533347,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 711.4757794833333,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 259.97932456666683,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 941.8241248333323,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 885.8097462833325,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 2351.502811416665,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 707.9447485666664,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 683.3030416333338,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 844.4446038333335,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 707.2276260166657,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 544.2623747000002,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 380.8966449666661,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 1114.1230410833325,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 331.28769996666693,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 397.39187661666654,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 1001.9936245999988,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 587.904958399999,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 1226.2038029333323,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 1703.1224833333326,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 2345.3014761999984,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 2669.015614899999,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 2320.1952394999985,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 420.9675420333331,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 255.40059881666718,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 509.9994166666659,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 896.8388570499999,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 694.9631919333339,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 1732.8023636999988,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 345.79743940000037,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 459.1807247999997,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 450,
+          "surplus": 50,
+          "critical_quantile": 0.9,
+          "penalty_eur": 57715.584097566636,
+          "uncapped_penalty_eur": 57541.38043304996,
+          "cap_penalty_change_eur": 174.2036645166736,
+          "short_mwh": 118.73769327733318,
+          "surplus_mwh": 85.67244245533347,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 1417.633654649999,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 292.05251723333316,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 2048.3762876666647,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 1930.9659429499973,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 5280.546791249995,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 1384.082748316666,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 1340.7653053833337,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 1723.9255679999997,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 1540.9377830166648,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 865.7819457000005,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 708.8829422166652,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 2352.878835249999,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 362.8785408000001,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 694.7199342833327,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 2187.8573015999973,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 1235.8307460666645,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 2599.9301033499974,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 3775.369349166664,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 5247.705345199993,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 5983.8656371499965,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 5153.131898499996,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 661.7700508666659,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 346.09089281666724,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 871.264076333332,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 1782.162828466666,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 975.1290655166673,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 3831.3893835333306,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 368.8346859833334,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 750.823936299999,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        }
+      ],
+      "status_counts": {
+        "SETTLED": 1392
+      },
+      "capped_orders": 13,
+      "requested_mwh": 3161.3685312720004,
+      "accepted_mwh": 3159.554711949,
+      "service_fraction": 0.5574712643678161
+    },
+    {
+      "policy": "q80",
+      "scenarios": [
+        {
+          "shortage": 50,
+          "surplus": 50,
+          "critical_quantile": 0.5,
+          "penalty_eur": 13101.620457883337,
+          "uncapped_penalty_eur": 13165.640514783334,
+          "cap_penalty_change_eur": -64.02005689999714,
+          "short_mwh": 71.39047544799999,
+          "surplus_mwh": 190.64193370966694,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 395.86570075,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 495.8147899666671,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 322.46519316666667,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 285.4200007833335,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 399.46078571666663,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 420.372707916667,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 449.40027241666695,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 449.7782834000002,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 251.45380941666684,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 556.7252132000001,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 355.3885649500004,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 481.21303751666704,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 568.9087407333336,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 420.91368111666696,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 402.93746986666673,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 318.297055266667,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 490.4157465999994,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 448.0228192,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 500.8352342166665,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 482.18141783333317,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 538.6918180833331,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 465.17475691666687,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 433.92218641666716,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 459.11631826666746,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 519.8617355333338,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 732.8817813500003,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 437.37748133333344,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 587.5261135500004,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 431.19774240000027,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 200,
+          "surplus": 50,
+          "critical_quantile": 0.8,
+          "penalty_eur": 23810.191775083298,
+          "uncapped_penalty_eur": 23547.24179978331,
+          "cap_penalty_change_eur": 262.9499752999873,
+          "short_mwh": 71.39047544799999,
+          "surplus_mwh": 190.64193370966694,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 577.8695729999996,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 495.8147899666671,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 649.4372175166659,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 548.7518551333332,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 1461.1458945166662,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 599.4038241666669,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 680.921691816667,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 773.1824265999999,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 414.54049761666647,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 653.88100505,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 405.2880684000004,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 986.1639010166665,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 568.9087407333336,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 498.37065196666714,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 879.3309308666667,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 481.95605966666676,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 1076.7010175499988,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 1269.9257993500003,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 1727.661018466666,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 1783.927446683332,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 1714.416030683333,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 501.9064284166668,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 433.92218641666716,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 598.5338977166685,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 878.5641879833335,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 865.4261147000003,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 1238.3028651333332,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 587.5261135500004,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 458.4115404000001,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 450,
+          "surplus": 50,
+          "critical_quantile": 0.9,
+          "penalty_eur": 41657.81063708339,
+          "uncapped_penalty_eur": 40849.91060811673,
+          "cap_penalty_change_eur": 807.9000289666656,
+          "short_mwh": 71.39047544799999,
+          "surplus_mwh": 190.64193370966694,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 881.2093600833324,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 495.8147899666671,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 1194.3905914333316,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 987.6382790499994,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 3230.6210758499988,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 897.7890179166669,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 1066.7907241500004,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 1312.1893319333333,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 686.3516446166664,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 815.8073248000001,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 488.4539074833335,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 1827.7486735166663,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 568.9087407333336,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 627.4656033833338,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 1673.3200325333319,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 754.7210669999997,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 2053.843135799998,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 2639.7640995999996,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 3772.37065888333,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 3953.5041614333295,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 3673.9563850166637,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 563.1258809166667,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 433.92218641666716,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 830.8965301333374,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 1476.4016087333337,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 1086.3333369500003,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 2573.1785048,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 587.5261135500004,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 503.7678704,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        }
+      ],
+      "status_counts": {
+        "SETTLED": 1392
+      },
+      "capped_orders": 27,
+      "requested_mwh": 3317.5114226,
+      "accepted_mwh": 3311.871421032667,
+      "service_fraction": 0.7686781609195402
+    },
+    {
+      "policy": "q90",
+      "scenarios": [
+        {
+          "shortage": 50,
+          "surplus": 50,
+          "critical_quantile": 0.5,
+          "penalty_eur": 16636.39851515001,
+          "uncapped_penalty_eur": 16230.062358250007,
+          "cap_penalty_change_eur": 406.3361569000026,
+          "short_mwh": 63.086159305666705,
+          "surplus_mwh": 269.6418109973332,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 506.35190558333403,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 674.713928333335,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 441.11202206666775,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 379.1946051500004,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 348.80594851666655,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 537.4928594000004,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 588.2879563833338,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 572.9176468000007,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 365.5341236833338,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 732.3672574000017,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 512.188169683334,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 585.2554366666673,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 748.3272919333343,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 582.4353677833341,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 511.2677160000003,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 451.2068727666675,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 703.0078776666678,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 490.6315436333335,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 479.6022571999993,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 415.4871468999992,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 545.5247885499998,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 623.3517820000014,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 684.0233607166684,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 711.4603997333348,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 637.5501487333339,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 872.7595824333342,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 484.72705835000056,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 756.4493006833342,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 694.3641604000014,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 200,
+          "surplus": 50,
+          "critical_quantile": 0.8,
+          "penalty_eur": 26099.322411,
+          "uncapped_penalty_eur": 23403.58943124998,
+          "cap_penalty_change_eur": 2695.7329797500206,
+          "short_mwh": 63.086159305666705,
+          "surplus_mwh": 269.6418109973332,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 584.9572582833341,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 726.5585356333377,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 711.9652337166691,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 514.06053925,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 1067.3964781666657,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 626.6298917000001,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 759.0130749333339,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 811.9030083000004,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 430.61345648333366,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 889.7191780000038,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 528.1592534333339,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 982.0678834666669,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 748.3272919333343,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 633.047041833334,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 881.0287193999998,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 545.1027766166674,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 1608.1813452166693,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 1107.3197836333327,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 1445.3049067499976,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 1374.677407199997,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 1473.872803849999,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 685.0909175500037,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 933.3593942666715,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 1229.3941013833376,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 903.6573941833336,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 985.8469482333344,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 1095.4390621500002,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 756.4493006833342,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 1060.1794247500038,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        },
+        {
+          "shortage": 450,
+          "surplus": 50,
+          "critical_quantile": 0.9,
+          "penalty_eur": 41870.86223741675,
+          "uncapped_penalty_eur": 35359.467886249935,
+          "cap_penalty_change_eur": 6511.3943511668185,
+          "short_mwh": 63.086159305666705,
+          "surplus_mwh": 269.6418109973332,
+          "daily": [
+            {
+              "date": "2026-09-01",
+              "penalty": 715.9661794500007,
+              "spot_cost": 15045.964725979884,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-02",
+              "penalty": 812.9662144666755,
+              "spot_cost": 16842.01817137655,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-03",
+              "penalty": 1163.3872531333377,
+              "spot_cost": 13468.95462186396,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-04",
+              "penalty": 738.8370960833327,
+              "spot_cost": 10497.20120216896,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-05",
+              "penalty": 2265.0473609166634,
+              "spot_cost": 3585.3030915844574,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-06",
+              "penalty": 775.1916121999997,
+              "spot_cost": 9115.27662972067,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-07",
+              "penalty": 1043.5549391833338,
+              "spot_cost": 16057.35417481402,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-08",
+              "penalty": 1210.2119441333332,
+              "spot_cost": 14566.737215493973,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-09",
+              "penalty": 539.0790111499999,
+              "spot_cost": 14811.956147406172,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-10",
+              "penalty": 1151.9723790000075,
+              "spot_cost": 20090.916410862206,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-11",
+              "penalty": 554.7777263500003,
+              "spot_cost": 20526.77838865542,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-12",
+              "penalty": 1643.4219614666665,
+              "spot_cost": 12431.873848166222,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-13",
+              "penalty": 748.3272919333343,
+              "spot_cost": 16184.454035760375,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-14",
+              "penalty": 717.3998319166676,
+              "spot_cost": 27117.92765256356,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-15",
+              "penalty": 1497.2970583999995,
+              "spot_cost": 18395.56057051815,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-16",
+              "penalty": 701.5959497000007,
+              "spot_cost": 19480.53378278638,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-17",
+              "penalty": 3116.80379113334,
+              "spot_cost": 13869.971364258427,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-18",
+              "penalty": 2135.133516966665,
+              "spot_cost": 10310.120749528154,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-19",
+              "penalty": 3054.8093226666606,
+              "spot_cost": 1984.907006921324,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-20",
+              "penalty": 2973.3278410333282,
+              "spot_cost": 1271.1053663736184,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-21",
+              "penalty": 3021.1194960166627,
+              "spot_cost": 9998.998359796864,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-22",
+              "penalty": 787.9894768000072,
+              "spot_cost": 24253.507681846095,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-23",
+              "penalty": 1348.9194501833435,
+              "spot_cost": 19766.418134535623,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-24",
+              "penalty": 2092.616937466675,
+              "spot_cost": 17096.55159059602,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-25",
+              "penalty": 1347.169469933333,
+              "spot_cost": 19570.72758836265,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-26",
+              "penalty": 1174.3258912333345,
+              "spot_cost": 13731.368211123536,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-27",
+              "penalty": 2113.2924018166655,
+              "spot_cost": 9610.324316700995,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-28",
+              "penalty": 756.4493006833342,
+              "spot_cost": 20459.820436743143,
+              "hours": 48
+            },
+            {
+              "date": "2026-09-29",
+              "penalty": 1669.8715320000074,
+              "spot_cost": 17543.320532948124,
+              "hours": 48
+            }
+          ]
+        }
+      ],
+      "status_counts": {
+        "SETTLED": 1386,
+        "REJECTED_RECONCILED": 6
+      },
+      "capped_orders": 55,
+      "requested_mwh": 3421.5741822960003,
+      "accepted_mwh": 3399.175614462667,
+      "service_fraction": 0.819683908045977
+    }
+  ]
+}
